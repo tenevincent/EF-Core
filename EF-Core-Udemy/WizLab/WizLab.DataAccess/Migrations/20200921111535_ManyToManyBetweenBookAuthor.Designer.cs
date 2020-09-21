@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WizLab.DataAccess.Data;
 
 namespace WizLab.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200921111535_ManyToManyBetweenBookAuthor")]
+    partial class ManyToManyBetweenBookAuthor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,13 +200,13 @@ namespace WizLab.DataAccess.Migrations
             modelBuilder.Entity("WizLab.Model.Models.BookAuthor", b =>
                 {
                     b.HasOne("WizLab.Model.Models.Author", "Author")
-                        .WithMany("BookAuthors")
+                        .WithMany()
                         .HasForeignKey("Author_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WizLab.Model.Models.Book", "Book")
-                        .WithMany("BookAuthors")
+                        .WithMany()
                         .HasForeignKey("Book_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -212,16 +214,6 @@ namespace WizLab.DataAccess.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("WizLab.Model.Models.Author", b =>
-                {
-                    b.Navigation("BookAuthors");
-                });
-
-            modelBuilder.Entity("WizLab.Model.Models.Book", b =>
-                {
-                    b.Navigation("BookAuthors");
                 });
 
             modelBuilder.Entity("WizLab.Model.Models.BookDetail", b =>

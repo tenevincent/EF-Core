@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WizLab.DataAccess.Data;
 
 namespace WizLab.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200921105205_AddRelationBookCategory")]
+    partial class AddRelationBookCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,7 +54,7 @@ namespace WizLab.DataAccess.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("BookDetail_Id")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("ISBN")
@@ -62,9 +64,6 @@ namespace WizLab.DataAccess.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("Publisher_Id")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -72,48 +71,9 @@ namespace WizLab.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookDetail_Id")
-                        .IsUnique();
-
-                    b.HasIndex("Publisher_Id");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Books");
-                });
-
-            modelBuilder.Entity("WizLab.Model.Models.BookAuthor", b =>
-                {
-                    b.Property<int>("Author_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Book_Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("Author_Id", "Book_Id");
-
-                    b.HasIndex("Book_Id");
-
-                    b.ToTable("BookAuthor");
-                });
-
-            modelBuilder.Entity("WizLab.Model.Models.BookDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("NumberOfChapters")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberOfPages")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Weight")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("tb_BookDetail");
                 });
 
             modelBuilder.Entity("WizLab.Model.Models.Category", b =>
@@ -178,60 +138,11 @@ namespace WizLab.DataAccess.Migrations
 
             modelBuilder.Entity("WizLab.Model.Models.Book", b =>
                 {
-                    b.HasOne("WizLab.Model.Models.BookDetail", "BookDetail")
-                        .WithOne("Book")
-                        .HasForeignKey("WizLab.Model.Models.Book", "BookDetail_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("WizLab.Model.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
 
-                    b.HasOne("WizLab.Model.Models.Publisher", "Publisher")
-                        .WithMany("Books")
-                        .HasForeignKey("Publisher_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BookDetail");
-
-                    b.Navigation("Publisher");
-                });
-
-            modelBuilder.Entity("WizLab.Model.Models.BookAuthor", b =>
-                {
-                    b.HasOne("WizLab.Model.Models.Author", "Author")
-                        .WithMany("BookAuthors")
-                        .HasForeignKey("Author_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WizLab.Model.Models.Book", "Book")
-                        .WithMany("BookAuthors")
-                        .HasForeignKey("Book_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("WizLab.Model.Models.Author", b =>
-                {
-                    b.Navigation("BookAuthors");
-                });
-
-            modelBuilder.Entity("WizLab.Model.Models.Book", b =>
-                {
-                    b.Navigation("BookAuthors");
-                });
-
-            modelBuilder.Entity("WizLab.Model.Models.BookDetail", b =>
-                {
-                    b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("WizLab.Model.Models.Publisher", b =>
-                {
-                    b.Navigation("Books");
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }
