@@ -28,14 +28,14 @@ namespace WizLab.Model.Models
         // ==> "One to one relationship" between
         // Book and BookDetail
         [ForeignKey("BookDetail")]
-        public int BookDetail_Id { get; set; }
+        public int BookDetailId { get; set; }
         public BookDetail BookDetail { get; set; }
 
 
         // ==> "One to many relationship" between
         // Book and Publisher
         [ForeignKey("Publisher")]
-        public int Publisher_Id { get; set; }
+        public int PublisherId { get; set; }
         public Publisher Publisher { get; set; }
 
 

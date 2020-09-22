@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WizLab.Model.Models
 {
 
-    [Table("tb_Category")]
+    [Table("Category")]
     public class Category
     {
         [Key]
