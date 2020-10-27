@@ -12,11 +12,16 @@ namespace WizLab.Model.Models
         [Key]
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int  Id { get; set; }
+        
         [Required]
         public string FirstName { get; set; }
+        
+        
         [Required]
         public string LastName { get; set; }
+        
         public DateTime BirthDate { get; set; }
+        
         public string Location { get; set; }
 
 
@@ -25,12 +30,8 @@ namespace WizLab.Model.Models
 
 
         [NotMapped]
-        public string FullName
-        {
-            get
-            {
-                return $"{FirstName} {LastName}";
-            }
-        }
+        public string FullName   =>  $"{FirstName} {LastName}";
+         
+         
     }
 }

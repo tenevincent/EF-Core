@@ -8,7 +8,7 @@ namespace WizLab.Model.Models
 {
    public class Book
     {
-        [Key()]
+        [Key]
         public int Id { get; set; }
 
         [Required]
@@ -40,12 +40,8 @@ namespace WizLab.Model.Models
 
 
         public ICollection<BookAuthor> BookAuthors { get; set; }
-
-
-
-
-
-
+         
+        // --> relationship has been removed!
         // [ForeignKey("Category")]
         //public int Category_Id { get; set; }
         //  public Category Category { get; set; }

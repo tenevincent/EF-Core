@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WizLab.Model.Models
@@ -13,5 +14,9 @@ namespace WizLab.Model.Models
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        // --> relationship has been removed!
+        // 1 to many relationship
+        //public List<Book> Books { get; set; }
     }
 }

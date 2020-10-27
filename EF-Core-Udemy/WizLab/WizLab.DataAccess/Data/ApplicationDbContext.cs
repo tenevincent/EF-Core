@@ -18,23 +18,18 @@ namespace WizLab.DataAccess.Data
             //composite key
             modelBuilder.Entity<BookAuthor>().HasKey(ba => new { ba.AuthorId, ba.BookId });
 
-            ////category table name and column name
+
+
+            //category table name and column name
             //modelBuilder.Entity<Category>().ToTable("tbl_category");
             //modelBuilder.Entity<Category>().Property(c => c.Name).HasColumnName("CategoryName");
 
-
             modelBuilder.ApplyConfiguration(new FluentBookDetailsConfig());
             modelBuilder.ApplyConfiguration(new FluentBookConfig());
-            modelBuilder.ApplyConfiguration(new FluentBookAuthorConfig());          
+            modelBuilder.ApplyConfiguration(new FluentBookAuthorConfig());
             modelBuilder.ApplyConfiguration(new FluentPublisherConfig());
             modelBuilder.ApplyConfiguration(new FluentAuthorConfig());
-
-
             modelBuilder.Entity<BookDetailsFromView>().HasNoKey().ToView("GetOnlyBookDetails");
-
-
-    
-
         }
 
 
@@ -45,6 +40,11 @@ namespace WizLab.DataAccess.Data
         public DbSet<BookDetail> BookDetails { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
+
+        public DbSet<BookAuthor> BookAuthors { get; set; }
+
+
+
 
 
         public DbSet<Fluent_BookDetail> FluentBookDetails { get; set; }
